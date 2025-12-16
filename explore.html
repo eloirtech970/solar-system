@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Explore Space</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      .stars,
+      .stars2,
+      .stars3 {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        background: transparent;
+        box-shadow: 100px 200px white, 300px 400px white, 500px 100px white,
+          700px 300px white, 900px 600px white, 1100px 200px white,
+          1300px 500px white, 1500px 100px white;
+        animation: animStar 50s linear infinite;
+      }
+
+      .stars2 {
+        animation-duration: 100s;
+        opacity: 0.6;
+      }
+
+      .stars3 {
+        animation-duration: 150s;
+        opacity: 0.4;
+      }
+
+      @keyframes animStar {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-2000px);
+        }
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen bg-gradient-to-b from-[#0b0f1a] via-[#0a1025] to-black text-white opacity-0 transition-opacity duration-500"
+  >
+    <!-- Stars Background -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div class="stars"></div>
+      <div class="stars2"></div>
+      <div class="stars3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="p-4">
+      <a
+        href="index.html"
+        onclick="pageTransition(event)"
+        class="text-xl opacity-70 hover:opacity-100"
+      >
+        ←
+      </a>
+    </header>
+
+    <!-- Main -->
+    <main class="relative px-4 max-w-md mx-auto space-y-8 pb-10">
+      <div
+        class="absolute inset-0 -z-10 blur-3xl opacity-30 bg-gradient-to-b from-blue-500 via-purple-500 to-transparent"
+      ></div>
+
+      <!-- Solar System Card -->
+      <a
+        href="solar-system/solar-system.html"
+        onclick="pageTransition(event)"
+        class="group block rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(59,130,246,0.25)]"
+      >
+        <div class="relative w-full aspect-[16/9] overflow-hidden">
+          <img
+            src="assets/images/solar-system.jpg"
+            alt="Solar System"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </div>
+
+        <div class="p-4 text-center">
+          <h2 class="font-semibold tracking-widest text-sm">SOLAR SYSTEM</h2>
+        </div>
+      </a>
+
+      <!-- Space Card -->
+      <a
+        href="space.html"
+        onclick="pageTransition(event)"
+        class="group block rounded-2xl overflow-hidden bg-white/5 backdrop-blur-md border border-white/10 transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(168,85,247,0.25)]"
+      >
+        <div class="relative w-full aspect-[16/9] overflow-hidden">
+          <img
+            src="assets/images/space.jpg"
+            alt="Space"
+            class="absolute inset-0 w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+          />
+        </div>
+
+        <div class="p-4 text-center">
+          <h2 class="font-semibold tracking-widest text-sm">SPACE</h2>
+        </div>
+      </a>
+    </main>
+
+    <!-- Page Transition Scripts -->
+    <script>
+      // Fade in on load
+      window.addEventListener("load", () => {
+        document.body.classList.remove("opacity-0");
+      });
+
+      // Fade out before navigation
+      function pageTransition(event) {
+        event.preventDefault();
+        const url = event.currentTarget.href;
+
+        document.body.classList.add("opacity-0");
+
+        setTimeout(() => {
+          window.location.href = url;
+        }, 300);
+      }
+    </script>
+  </body>
+</html>

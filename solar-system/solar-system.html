@@ -1,0 +1,225 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Solar System</title>
+
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <style>
+      /* ===== Stars Background ===== */
+      .stars,
+      .stars2,
+      .stars3 {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        background: transparent;
+        box-shadow: 100px 200px white, 300px 400px white, 500px 100px white,
+          700px 300px white, 900px 600px white, 1100px 200px white,
+          1300px 500px white, 1500px 100px white;
+        animation: animStar 50s linear infinite;
+      }
+
+      .stars2 {
+        animation-duration: 100s;
+        opacity: 0.6;
+      }
+
+      .stars3 {
+        animation-duration: 150s;
+        opacity: 0.4;
+      }
+
+      @keyframes animStar {
+        from {
+          transform: translateY(0);
+        }
+        to {
+          transform: translateY(-2000px);
+        }
+      }
+
+      /* ===== Planet Animations ===== */
+      @keyframes spinSlow {
+        from {
+          transform: rotate(0deg);
+        }
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      @keyframes float {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      @keyframes glowPulse {
+        0%,
+        100% {
+          box-shadow: 0 0 15px rgba(255, 255, 255, 0.15);
+        }
+        50% {
+          box-shadow: 0 0 35px rgba(255, 255, 255, 0.35);
+        }
+      }
+
+      .orbit-ring {
+        border: 1px dashed rgba(255, 255, 255, 0.15);
+        animation: spinSlow 20s linear infinite;
+      }
+    </style>
+  </head>
+
+  <body
+    class="min-h-screen bg-gradient-to-b from-[#0b0f1a] via-[#0a1025] to-black text-white opacity-0 transition-opacity duration-500"
+  >
+    <!-- Stars -->
+    <div class="fixed inset-0 -z-10 overflow-hidden pointer-events-none">
+      <div class="stars"></div>
+      <div class="stars2"></div>
+      <div class="stars3"></div>
+    </div>
+
+    <!-- Header -->
+    <header class="p-4">
+      <a
+        href="/solar-system-app/explore.html"
+        class="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-white/5 backdrop-blur-md border border-white/10 text-sm tracking-widest opacity-80 transition-all duration-300 hover:opacity-100 hover:bg-white/10 hover:shadow-[0_0_20px_rgba(255,255,255,0.15)] active:scale-95"
+      >
+        <span class="text-lg">←</span>
+        <span class="hidden sm:inline">BACK</span>
+      </a>
+    </header>
+
+    <!-- Content -->
+    <main class="px-4 max-w-5xl mx-auto pb-12">
+      <!-- Title -->
+      <section class="text-center mb-10" data-parallax="0.25">
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-widest mb-3">
+          SOLAR SYSTEM
+        </h1>
+        <p class="text-sm text-gray-300 max-w-md mx-auto">
+          Explore the planets that orbit our star — from scorching Mercury to
+          icy Neptune.
+        </p>
+      </section>
+
+      <!-- Planet Grid -->
+      <section
+        id="planetGrid"
+        class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-6"
+        data-parallax="0.15"
+      ></section>
+    </main>
+
+    <script>
+      /* ===== Page Fade In ===== */
+      window.addEventListener("load", () => {
+        document.body.classList.remove("opacity-0");
+      });
+
+      /* ===== Scroll Parallax ===== */
+      window.addEventListener("scroll", () => {
+        document.querySelectorAll("[data-parallax]").forEach((el) => {
+          const speed = el.dataset.parallax;
+          el.style.transform = `translateY(${window.scrollY * speed}px)`;
+        });
+      });
+
+      /* ===== Planet Data (DATA-DRIVEN) ===== */
+      const planets = [
+        {
+          name: "Mercury",
+          file: "planet-mercury.html",
+          img: "mercury.png",
+          glow: "251,191,36",
+        },
+        {
+          name: "Venus",
+          file: "planet-venus.html",
+          img: "venus.png",
+          glow: "251,113,133",
+        },
+        {
+          name: "Earth",
+          file: "planet-earth.html",
+          img: "earth.png",
+          glow: "59,130,246",
+        },
+        {
+          name: "Mars",
+          file: "planet-mars.html",
+          img: "mars.png",
+          glow: "239,68,68",
+        },
+        {
+          name: "Jupiter",
+          file: "planet-jupiter.html",
+          img: "jupiter.png",
+          glow: "245,158,11",
+        },
+        {
+          name: "Saturn",
+          file: "planet-saturn.html",
+          img: "saturn.png",
+          glow: "250,204,21",
+        },
+        {
+          name: "Uranus",
+          file: "planet-uranus.html",
+          img: "uranus.png",
+          glow: "56,189,248",
+        },
+        {
+          name: "Neptune",
+          file: "planet-neptune.html",
+          img: "neptune.png",
+          glow: "99,102,241",
+        },
+      ];
+
+      const grid = document.getElementById("planetGrid");
+
+      planets.forEach((p) => {
+        grid.innerHTML += `
+          <a href="${
+            p.file
+          }" class="planet-link group bg-white/5 backdrop-blur-md border border-white/10 rounded-xl overflow-hidden transition hover:-translate-y-1 hover:shadow-[0_0_30px_rgba(${
+          p.glow
+        },0.25)]">
+            <div class="aspect-square relative flex items-center justify-center">
+              <div class="absolute inset-4 rounded-full orbit-ring opacity-0 group-hover:opacity-100 transition-opacity duration-500"></div>
+              <img
+                src="assets/images/planets/${p.img}"
+                class="relative z-10 w-full h-full object-contain transition-transform duration-700 group-hover:scale-110 group-hover:rotate-12"
+                style="animation: float 6s ease-in-out infinite, spinSlow 40s linear infinite, glowPulse 4s ease-in-out infinite;"
+              />
+            </div>
+            <p class="text-center text-xs tracking-widest pb-3">${p.name.toUpperCase()}</p>
+          </a>
+        `;
+      });
+
+      /* ===== Planet Detail Transition ===== */
+      document.addEventListener("click", (e) => {
+        const link = e.target.closest(".planet-link");
+        if (!link) return;
+
+        e.preventDefault();
+        document.body.classList.add("opacity-0");
+        document.body.style.transform = "scale(0.98)";
+        setTimeout(() => {
+          window.location.href = link.href;
+        }, 350);
+      });
+    </script>
+  </body>
+</html>

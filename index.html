@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Space Explorer</title>
+
+    <!-- Tailwind CDN + Custom Config -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            colors: {
+              primary: "#ef4444",
+            },
+            animation: {
+              fadeIn: "fadeIn 1.2s ease-out forwards",
+              bounceSlow: "bounce 2s infinite",
+            },
+            keyframes: {
+              fadeIn: {
+                "0%": { opacity: 0, transform: "translateY(20px)" },
+                "100%": { opacity: 1, transform: "translateY(0)" },
+              },
+            },
+          },
+        },
+      };
+    </script>
+  </head>
+
+  <body class="bg-black text-white overflow-hidden">
+    <!-- HERO SECTION -->
+    <section class="relative min-h-screen flex items-center justify-center">
+      <!-- Background -->
+      <img
+        src="assets/images/astronaut.jpg"
+        alt="Astronaut in space"
+        class="absolute inset-0 w-full h-full object-cover object-[center_top] sm:object-center"
+      />
+
+      <!-- Gradient Overlay -->
+      <div
+        class="absolute inset-0 bg-gradient-to-b from-black/80 via-black/60 to-black/90"
+      ></div>
+
+      <!-- Content -->
+      <div
+        class="relative z-10 px-6 text-center max-w-[18rem] sm:max-w-md animate-fadeIn"
+      >
+        <!-- Title -->
+        <h1 class="text-lg sm:text-xl font-semibold tracking-widest mb-4">
+          EXPLORE SPACE
+        </h1>
+
+        <p class="text-sm sm:text-base leading-relaxed text-gray-200 mb-8">
+          Discover the real science about planets, stars, galaxies, black holes,
+          and everything that lives in the vast world of space.
+        </p>
+
+        <!-- CTA Button -->
+        <button
+          onclick="goNext()"
+          aria-label="Start exploring space"
+          class="relative inline-flex items-center justify-center px-10 py-2 rounded-full border border-primary text-sm tracking-wide transition duration-300 hover:bg-primary hover:shadow-[0_0_25px_rgba(239,68,68,0.8)] active:scale-95"
+        >
+          Start Exploring
+        </button>
+      </div>
+
+      <!-- Scroll Hint -->
+      <div class="absolute bottom-6 text-gray-300 text-xs animate-bounceSlow">
+        ↓ Scroll
+      </div>
+    </section>
+
+    <!-- Page Transition Script -->
+    <script>
+      function goNext() {
+        document.body.classList.add("opacity-0", "transition", "duration-500");
+        setTimeout(() => {
+          window.location.href = "explore.html";
+        }, 500);
+      }
+    </script>
+  </body>
+</html>
